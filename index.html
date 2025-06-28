@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSight - Your personal expense tracker.</title>
+    <link rel="stylesheet" href="indexstyle.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <h2 class="logo">FinSight</h2>
+
+        <button id="collapseBtn">&#9776;</button>
+        <button id="darkToggle">🌙</button>
+
+        <nav>
+            <ul>
+                <li class="active"><a href="index.html"><i class="icon">&#128200;</i> <span class="text">Dashboard</span></a></li>
+                <li><a href="expenses.html"><i class="icon">&#10133;</i> <span class="text">Add Expense</span></a></li>
+                <li><a href="calculator.html"><i class="icon">&#128181;</i> <span class="text">Income Calculator</span></a></li>
+                <li><a href="profile.html"><i class="icon">&#128100;</i> <span class="text">Profile</span></a></li>
+                <li><a href="analytics.html"><i class="icon">&#128202;</i> <span class="text">Reports</span></a></li>
+                <li><a href="logout.php"><i class="icon">&#128682;</i> <span class="text">Logout</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main content area -->
+    <main>
+        <h1>Welcome to FinSight</h1>
+        <p>This is your personal finance dashboard.</p>
+        <!-- Add dashboard content here -->
+        <section class="dashboard">
+            <h2>Overview</h2>
+            <div class="dashboard-cards">
+                <div class="card budget">
+                    <p class="card-label">Budget</p>
+                    <p class="card-value" id="budget-amount">$0.00</p>
+                </div>
+                <div class="card expenses">
+                    <p class="card-label">Expenses</p>
+                    <p class="card-value" id="expense-amount">$0.00</p>
+                </div>
+                <div class="card balance">
+                    <p class="card-label">Balance</p>
+                    <p class="card-value" id="balance-amount">$0.00</p>
+                </div>
+            </div>
+        </section>
+        
+
+         <section class="transaction-history">
+            <h2>Recent Transactions</h2>
+
+            <table class="recent-transaction-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>06/24/2025</td>
+                        <td>Rent</td>
+                        <td>June apartment rent</td>
+                    </tr>
+                    <tr>
+                        <td>06/22/2025</td>
+                        <td>Groceries</td>
+                        <td>Walmart food run</td>
+                    </tr>
+                    <tr>
+                        <td>06/21/2025</td>
+                        <td>Utilities</td>
+                        <td>May electric bill</td>
+                    </tr>
+                </tbody>
+            </table>
+         </section>
+    </main>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
