@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Expense</title>
+    <link rel="stylesheet" href="expensestyle.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <h2 class="logo">FinSight</h2>
+    
+        <button id="collapseBtn">&#9776;</button>
+        <button id="darkToggle">🌙</button>
+    
+        <nav>
+            <ul>
+                <li class="active"><a href="index.html"><i class="icon">&#128200;</i> <span class="text">Dashboard</span></a></li>
+                <li><a href="expenses.html"><i class="icon">&#10133;</i> <span class="text">Add Expense</span></a></li>
+                <li><a href="calculator.html"><i class="icon">&#128181;</i> <span class="text">Income Calculator</span></a></li>
+                <li><a href="profile.html"><i class="icon">&#128100;</i> <span class="text">Profile</span></a></li>
+                <li><a href="analytics.html"><i class="icon">&#128202;</i> <span class="text">Reports</span></a></li>
+                <li><a href="logout.php"><i class="icon">&#128682;</i> <span class="text">Logout</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!--Main Content Area-->
+    <main>
+        <section class="expense-form">
+            <h1>Add Expense</h1>
+    
+            <div class="add-expense">
+                <label for="date">Date</label>
+                <input type="date" name="date" id="date">
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="rent">Rent/Mortgage</option>
+                    <option value="transportation">Car</option>
+                    <option value="bills">Bills</option>
+                    <option value="food">Food</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="leisure">Leisure/Pleasure</option>
+                </select>
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description">
+                <label for="amount">Amount</label>
+                <div class="input-group">
+                    <span class="currency-prefix">$</span>
+                    <input type="number" name="amount" id="amount" step="0.01" min="0" placeholder="0.00" required>
+                </div>
+                <input type="button" value="Save Changes">
+            </div>
+        </section>
+    </main>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
