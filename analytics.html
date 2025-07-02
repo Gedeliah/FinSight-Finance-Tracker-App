@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - FinSight</title>
+    <link rel="stylesheet" href="analyticstyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+        <!-- Sidebar Navigation -->
+        <div class="sidebar" id="sidebar">
+            <h2 class="logo">FinSight</h2>
+            
+            <button id="collapseBtn">&#9776;</button>
+            <button id="darkToggle">🌙</button>
+            
+            <nav>
+                <ul>
+                    <li class="active"><a href="index.html"><i class="icon">&#128200;</i> <span class="text">Dashboard</span></a></li>
+                    <li><a href="expenses.html"><i class="icon">&#10133;</i> <span class="text">Add Expense</span></a></li>
+                    <li><a href="calculator.html"><i class="icon">&#128181;</i> <span class="text">Income Calculator</span></a></li>
+                    <li><a href="profile.html"><i class="icon">&#128100;</i> <span class="text">Profile</span></a></li>
+                    <li><a href="analytics.html"><i class="icon">&#128202;</i> <span class="text">Reports</span></a></li>
+                    <li><a href="logout.php"><i class="icon">&#128682;</i> <span class="text">Logout</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <main>
+            <section class="analytics">
+              <h2>Spending Analytics</h2>
+        
+              <div class="chart-card">
+                <h3>Spending by Category</h3>
+                <canvas id="categoryChart"></canvas>
+              </div>
+        
+              <div class="chart-card">
+                <h3>Monthly Spending</h3>
+                <canvas id="monthlyChart"></canvas>
+              </div>
+            </section>
+          </main>
+        
+          <!-- JavaScript for Charts -->
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              // Pie Chart – Spending by Category
+              const categoryCtx = document.getElementById("categoryChart").getContext("2d");
+              new Chart(categoryCtx, {
+                type: "pie",
+                data: {
+                  labels: ["Rent", "Groceries", "Transport", "Entertainment", "Utilities", "Misc"],
+                  datasets: [{
+                    label: "Spending",
+                    data: [1200, 450, 180, 220, 130, 90],
+                    backgroundColor: [
+                      "#4caf50", "#2196f3", "#ff9800", "#e91e63", "#9c27b0", "#607d8b"
+                    ],
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: "bottom",
+                      labels: { color: getComputedStyle(document.body).getPropertyValue('--text-color') }
+                    }
+                  }
+                }
+              });
+        
+              // Bar Chart – Monthly Spending
+              const monthlyCtx = document.getElementById("monthlyChart").getContext("2d");
+              new Chart(monthlyCtx, {
+                type: "bar",
+                data: {
+                  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                  datasets: [{
+                    label: "Total Spending",
+                    data: [1800, 1600, 1750, 1900, 1850, 1700],
+                    backgroundColor: "#145b6d"
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-color') }
+                    },
+                    x: {
+                      ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-color') }
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                      labels: { color: getComputedStyle(document.body).getPropertyValue('--text-color') }
+                    }
+                  }
+                }
+              });
+            });
+          </script>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
