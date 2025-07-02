@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Calculator</title>
+    <link rel="stylesheet" href="calculatorstyle.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <h2 class="logo">FinSight</h2>
+    
+        <button id="collapseBtn">&#9776;</button>
+        <button id="darkToggle">🌙</button>
+    
+        <nav>
+            <ul>
+                <li class="active"><a href="index.html"><i class="icon">&#128200;</i> <span class="text">Dashboard</span></a></li>
+                <li><a href="expenses.html"><i class="icon">&#10133;</i> <span class="text">Add Expense</span></a></li>
+                <li><a href="calculator.html"><i class="icon">&#128181;</i> <span class="text">Income Calculator</span></a></li>
+                <li><a href="profile.html"><i class="icon">&#128100;</i> <span class="text">Profile</span></a></li>
+                <li><a href="analytics.html"><i class="icon">&#128202;</i> <span class="text">Reports</span></a></li>
+                <li><a href="logout.php"><i class="icon">&#128682;</i> <span class="text">Logout</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <section class="income-calculator">
+            <h2>Income Calculator</h2>
+
+            <div class="calculator-form">
+                <div class="calculator-form">
+                    <!-- Toggle between hourly and salary -->
+                    <div class="toggle-group">
+                        <label>
+                            <input type="radio" name="income-type" value="hourly" checked>
+                            Hourly
+                        </label>
+                        <label>
+                            <input type="radio" name="income-type" value="salary">
+                            Salary
+                        </label>
+                    </div>
+                
+                    <!-- Hourly section -->
+                    <div class="income-hourly">
+                        <label for="hourly-wage">Hourly Wage</label>
+                        <div class="input-group">
+                            <span class="currency-prefix">$</span>
+                            <input type="number" name="hourly-wage" id="hourly-wage" step="0.01" min="0" placeholder="0.00">
+                        </div>
+                
+                        <label for="week-hours">Hours Per Week</label>
+                        <input type="number" name="week-hours" id="week-hours" min="0" placeholder="e.g. 40">
+                    </div>
+                
+                    <!-- Salary section -->
+                    <div class="income-salary" style="display: none;">
+                        <label for="annual-salary">Annual Salary</label>
+                        <div class="input-group">
+                            <span class="currency-prefix">$</span>
+                            <input type="number" name="annual-salary" id="annual-salary" step="0.01" min="0" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <label for="state">What state are you located in?</label>
+                    <select name="state" id="state">
+                        <option value="default" disabled selected>Select a state</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="AS">American Samoa</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="GU">Guam</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="MP">Northern Mariana Island</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennesse</option>
+                        <option value="TX">Texas</option>
+                        <option value="TT">Trust Territories</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="VI">Virgin Islands</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+
+                    <div id="extra-income-container"></div>
+                    <button type="button" id="add-income-btn">Add Another Income Source</button>
+                
+                    <input type="button" value="Calculate" id="calculate-btn">
+
+                    <div id="income-results" style="display: none; margin-top: 2rem;">
+                        <h3>Income Summary</h3>
+                        <p id="weekly-income"></p>
+                        <p id="monthly-income"></p>
+                        <p id="yearly-income"></p>
+                        <p id="net-income"></p>
+                    </div>
+                    
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            // --- ELEMENT REFERENCES ---
+                            const hourlyRadio = document.querySelector('input[value="hourly"]');
+                            const salaryRadio = document.querySelector('input[value="salary"]');
+                            const hourlySection = document.querySelector('.income-hourly');
+                            const salarySection = document.querySelector('.income-salary');
+                            const calculateBtn = document.getElementById("calculate-btn");
+                            const stateSelect = document.getElementById("state");
+                            const resultsBox = document.getElementById("income-results");
+                            const weeklyOut = document.getElementById("weekly-income");
+                            const monthlyOut = document.getElementById("monthly-income");
+                            const yearlyOut = document.getElementById("yearly-income");
+                            const netOut = document.getElementById("net-income");
+                            const extraIncomeContainer = document.getElementById("extra-income-container");
+                            const addIncomeBtn = document.getElementById("add-income-btn");
+
+                            // --- STATE TAX RATES ---
+                            const stateTaxRates = {
+                                AL: 0.05, AK: 0, AZ: 0.045, AR: 0.069,
+                                AS: 0.02, CA: 0.133, CO: 0.044, CT: 0.0699,
+                                DE: 0.066, DC: 0.1075, FL: 0, GA: 0.0575,
+                                GU: 0.06, HI: 0.11, ID: 0.053, IL: 0.0495,
+                                IN: 0.0305, IA: 0.058, KS: 0.0578, KY: 0.05,
+                                LA: 0.047, ME: 0.0715, MD: 0.0575, MA: 0.05,
+                                MI: 0.0425, MN: 0.0985, MO: 0.051, MT: 0.059,
+                                NE: 0.052, NV: 0, NH: 0, NJ: 0.1075,
+                                NM: 0.059, NY: 0.109, NC: 0.0425, ND: 0.025,
+                                MP: 0.069, OH: 0.035, OK: 0.0475, OR: 0.099,
+                                PA: 0.0307, PR: 0.047, RI: 0.0599, SC: 0.062,
+                                SD: 0, TN: 0, TX: 0, TT: 0,
+                                UT: 0.0485, VT: 0.0875, VA: 0.0575, VI: 0.047,
+                                WA: 0, WV: 0.0482, WI: 0.0765, WY: 0
+                            };
+
+                            // --- INCOME TYPE TOGGLE ---
+                            document.querySelectorAll('input[name="income-type"]').forEach(radio => {
+                                radio.addEventListener("change", () => {
+                                    if (hourlyRadio.checked) {
+                                        hourlySection.style.display = "block";
+                                        salarySection.style.display = "none";
+                                    } else {
+                                        hourlySection.style.display = "none";
+                                        salarySection.style.display = "block";
+                                    }
+                                });
+                            });
+
+                            // --- ADD EXTRA INCOME SOURCE ---
+                            addIncomeBtn.addEventListener("click", () => {
+                                const wrapper = document.createElement("div");
+                                wrapper.classList.add("extra-income-entry");
+                                wrapper.style.marginTop = "1rem";
+
+                                wrapper.innerHTML = `
+                                    <label>Extra Income Source</label>
+                                    <div class="input-group">
+                                        <input type="text" class="extra-income-label" placeholder="e.g. Freelance, Side Job" />
+                                        <span class="currency-prefix">$</span>
+                                        <input type="number" class="extra-income" step="0.01" min="0" placeholder="0.00" />
+                                        <button type="button" class="remove-btn" style="margin-left: 0.5rem;">🗑</button>
+                                    </div>
+                                `;
+
+                                // Add remove functionality
+                                wrapper.querySelector(".remove-btn").addEventListener("click", () => {
+                                    wrapper.remove();
+                                });
+
+                                extraIncomeContainer.appendChild(wrapper);
+                            });
+
+                            // --- CALCULATE INCOME ---
+                            calculateBtn.addEventListener("click", () => {
+                                let weekly = 0, monthly = 0, yearly = 0;
+
+                                // Hourly or salary base income
+                                if (hourlyRadio.checked) {
+                                    const wage = parseFloat(document.getElementById("hourly-wage").value) || 0;
+                                    const hours = parseFloat(document.getElementById("week-hours").value) || 0;
+                                    weekly = wage * hours;
+                                    yearly = weekly * 52;
+                                    monthly = yearly / 12;
+                                } else {
+                                    yearly = parseFloat(document.getElementById("annual-salary").value) || 0;
+                                    monthly = yearly / 12;
+                                    weekly = yearly / 52;
+                                }
+
+                                // Add extra income sources
+                                const extraIncomes = document.querySelectorAll(".extra-income");
+                                extraIncomes.forEach(input => {
+                                    const val = parseFloat(input.value) || 0;
+                                    yearly += val;
+                                });
+
+                                // Final adjustments
+                                monthly = yearly / 12;
+                                weekly = yearly / 52;
+
+                                const selectedState = stateSelect.value;
+                                const taxRate = stateTaxRates[selectedState] !== undefined ? stateTaxRates[selectedState] : 0.08;
+                                const net = yearly * (1 - taxRate);
+
+                                // Display results
+                                resultsBox.style.display = "block";
+                                weeklyOut.textContent = `Weekly Gross: $${weekly.toFixed(2)}`;
+                                monthlyOut.textContent = `Monthly Gross: $${monthly.toFixed(2)}`;
+                                yearlyOut.textContent = `Yearly Gross: $${yearly.toFixed(2)}`;
+                                netOut.textContent = `Estimated Net Income (after ${(taxRate * 100).toFixed(1)}% tax in ${selectedState}): $${net.toFixed(2)}`;
+                            });
+                        });
+
+
+                    </script>
+                        
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
